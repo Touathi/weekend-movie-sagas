@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 import './MovieList.css'
 
 function MovieList() {
@@ -19,7 +21,9 @@ function MovieList() {
                     return (
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
+                            <Link to='/moviedetails'>
                             <img src={movie.poster} alt={movie.title}/>
+                            </Link>
                         </div>
                     );
                 })}

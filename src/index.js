@@ -22,11 +22,9 @@ function* fetchAllMovies() {
         const movies = yield axios.get('/api/movie');
         console.log('get all:', movies.data);
         yield put({ type: 'SET_MOVIES', payload: movies.data });
-
     } catch {
         console.log('get all error');
-    }
-        
+    }   
 }
 
 // Create sagaMiddleware
@@ -52,11 +50,25 @@ const genres = (state = [], action) => {
     }
 }
 
+// Used to store the movie genres
+const moviesdetails = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_MOVIE_DETAILS':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+
+
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        moviesdetails
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
