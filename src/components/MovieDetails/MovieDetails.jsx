@@ -7,21 +7,34 @@ function MovieDetails() {
 
     const history = useHistory()
     const dispatch = useDispatch();
-    const movies = useSelector(store => store.moviedetails);
+    const moviedetail = useSelector(store => store.moviedetails);
+
     const genre = useSelector(store => store.moviegenres)
-    console.log(movies);
-    console.log(movies.id);
+    console.log(moviedetail);
+
     console.log(genre);
 
+
+    // pass the Movie ID to the sags with the type FETCH_MOVIE_GENRE
     useEffect( () => {
-        dispatch( { type: 'FETCH_MOVIE_GENRE', payload: movies.id})
+        dispatch( { type: 'FETCH_MOVIE_GENRE', payload: moviedetail.id})
     }, [])
 
 
+    const handleclick = () => {
+        history.push('/')
+    }
     return (
         <>
+            <button onClick={handleclick}>Back to Movie List</button>
             <div>
-                <p>Movie details</p>
+                <h3>Moive Genres</h3>
+                {genre.map(genre => (
+                    <p>{genre.name}</p>
+                ))}
+                <h3>{moviedetail.title}</h3>
+                <img src={moviedetail.poster}></img>
+                <p>{moviedetail.description}</p>
             </div>
         </>
     )

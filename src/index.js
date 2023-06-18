@@ -28,8 +28,12 @@ function* fetchAllMovies() {
     }   
 }
 
+
+    
 function* fetchMovieGenres(action) {
-    try{
+    try{    // Pass the movie ID into the api route,
+            // get the movie genres from the query and store it into
+            // the movie genres reducer store
         const movieGenresResponse = yield axios.get(`/api/genre/${action.payload}`)
         yield put ( { type: 'SET_MOVIE_GENRES', payload: movieGenresResponse.data } )
     }   

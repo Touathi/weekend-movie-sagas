@@ -13,7 +13,7 @@ function MovieList() {
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
-
+"git "
     const handleClick = (movie) => {
         console.log(movie);
         dispatch( { type: 'SET_MOVIE_DETAILS', payload: movie})
