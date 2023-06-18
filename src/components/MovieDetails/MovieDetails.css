@@ -1,0 +1,30 @@
+
+
+#backBtn {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+#genres {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: baseline;
+    padding: 10px
+}
+
+#flexbox {
+    display: flex;
+    flex-direction: row;
+}
+
+#details {
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+#wordcolor {
+    color: white;
+}

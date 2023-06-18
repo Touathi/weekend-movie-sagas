@@ -2,3 +2,9 @@
     display : flex;
     flex-wrap: wrap;
 }
+
+main {
+    color: white
+}
+
+

@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import './MovieDetails.css'
+import Button from '@mui/material/Button';
+import BackBtn from '../BackBtn/BackBtn';
 
 
 function MovieDetails() {
@@ -9,10 +12,10 @@ function MovieDetails() {
     const dispatch = useDispatch();
     const moviedetail = useSelector(store => store.moviedetails);
 
-    const genre = useSelector(store => store.moviegenres)
+    const genres = useSelector(store => store.moviegenres)
     console.log(moviedetail);
 
-    console.log(genre);
+    console.log(genres);
 
 
     // pass the Movie ID to the sags with the type FETCH_MOVIE_GENRE
@@ -26,15 +29,31 @@ function MovieDetails() {
     }
     return (
         <>
-            <button onClick={handleclick}>Back to Movie List</button>
-            <div>
-                <h3>Moive Genres</h3>
-                {genre.map(genre => (
-                    <p>{genre.name}</p>
-                ))}
-                <h3>{moviedetail.title}</h3>
-                <img src={moviedetail.poster}></img>
-                <p>{moviedetail.description}</p>
+            <div id='wordcolor'>
+                <div>
+                    <Button 
+                        variant="contained" 
+                        color="primary" 
+                        id='backBtn' 
+                        onClick={handleclick}
+                        size='small'>
+                            <BackBtn />
+                    </Button>
+                </div>
+
+                <div id='flexbox'>
+                    <div id='genres'>
+                        <h3>Moive Genres:</h3>
+                        {genres.map((genre, i) => (
+                            <p key={i} id='genrebox'>{genre.name}</p>
+                        ))}
+                    </div>
+                    <div id='moviedetails'>
+                        <h3>{moviedetail.title}</h3>
+                        <img src={moviedetail.poster}></img>
+                        <p id='details' >{moviedetail.description}</p>
+                    </div>
+                </div>
             </div>
         </>
     )
