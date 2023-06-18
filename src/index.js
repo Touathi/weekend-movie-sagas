@@ -8,12 +8,13 @@ import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 // Import saga middleware
 import createSagaMiddleware from 'redux-saga';
-import { takeEvery, put } from 'redux-saga/effects';
+import { takeEvery, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+    yield takeEvery('FETCH_MOVIE_GENRE', fetchMovieGenres)
 }
 
 function* fetchAllMovies() {
@@ -27,8 +28,21 @@ function* fetchAllMovies() {
     }   
 }
 
+function* fetchMovieGenres(action) {
+    try{
+        const movieGenresResponse = yield axios.get(`/api/genre/${action.payload}`)
+        yield put ( { type: 'SET_MOVIE_GENRES', payload: movieGenresResponse.data } )
+    }   
+    catch (error) {
+        console.log(`${error} Error in getting movie genres `);
+    }
+}
+
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
+
+
+// REDUCER STORES ---------------------->
 
 // Used to store movies returned from the server
 const movies = (state = [], action) => {
@@ -39,7 +53,6 @@ const movies = (state = [], action) => {
             return state;
     }
 }
-
 // Used to store the movie genres
 const genres = (state = [], action) => {
     switch (action.type) {
@@ -49,11 +62,19 @@ const genres = (state = [], action) => {
             return state;
     }
 }
-
-// Used to store the movie genres
-const moviesdetails = (state = [], action) => {
+// USED TO STORE MOVIE DETAILS
+const moviedetails = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIE_DETAILS':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+// USED TO STORE GENRES OF THAT SINGLE MOVIE
+const moviegenres = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_MOVIE_GENRES':
             return action.payload;
         default:
             return state;
@@ -68,7 +89,8 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
-        moviesdetails
+        moviedetails,
+        moviegenres
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
