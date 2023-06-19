@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import BackBtn from '../BackBtn/BackBtn';
 
 
+
+
 function MovieDetails() {
 
     const history = useHistory()

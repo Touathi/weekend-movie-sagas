@@ -1,8 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
 import './MovieList.css'
+
+// IMPORT CARD REQUIREMENTS
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 
 
 function MovieList() {
@@ -25,15 +33,16 @@ function MovieList() {
             <section className="movies">
                 {movies.map(movie => {
                     return (
-                        <div key={movie.id} >
-                            <h3>{movie.title}</h3>
-                            <Link to='/moviedetails'>
-                            <img src={movie.poster} 
-                                alt={movie.title}
-                                onClick={() => handleClick(movie)} />
-                            </Link>
-                            
-                        </div>
+                        <Card>
+                            <div id='movieCard' key={movie.id} >
+                                <h3>{movie.title}</h3>
+                                <Link to='/moviedetails'>
+                                <img src={movie.poster} 
+                                    alt={movie.title}
+                                    onClick={() => handleClick(movie)} />
+                                </Link>
+                            </div>    
+                        </Card>    
                     );
                 })}
             </section>
